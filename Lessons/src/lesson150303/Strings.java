@@ -25,6 +25,12 @@ public class Strings {
 		System.out.println(x == t);
 		System.out.println(x.equals(t));
 		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("Hello").append("123").append(456);
+		
+		System.out.println(sb.toString());
+		
 	}
 	
 }
