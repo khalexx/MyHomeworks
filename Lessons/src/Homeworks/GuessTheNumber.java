@@ -13,11 +13,14 @@ public class GuessTheNumber {
 		String strnum;
 		
 		Scanner req = new Scanner(System.in);
+		
 		System.out.println("Загадайте число от 1 до 100 и введите его, я не буду смотреть что вы ввели,");
 		System.out.println("но угадаю это число максимум с 7 попыток.");
+		
 		while (usernum<1 || usernum>100) {
-			strnum=req.nextLine();
-			usernum=Integer.parseInt(strnum);
+			
+			usernum=Integer.parseInt(req.nextLine());
+			
 			if (usernum<1 && usernum>100) {
 				System.out.println("От 1 до 100;)");
 			}
@@ -27,22 +30,34 @@ public class GuessTheNumber {
 		
 		for(int i = 0;i < 7;i++) {
 				String answer="";
+				
 				System.out.printf("Ваше число %d? Если да, напишите \"yes\", если нет\n",guess);
-				System.out.println("напишите больше -\"greater\" оно, или меньше\"less\"");
+				System.out.println("напишите больше -\"greater\" оно, или меньше - \"less\"");
+				
 				answer=req.nextLine();
-				if (answer.equals("больше")) {
+				
+				if (answer.equals("greater")) {
+					
 					lowbord=guess;
-				} else if (answer.equals("меньше")) {
+					
+				} else if (answer.equals("less")) {
+					
 					upbord = guess;
-				} else if (answer.equals("да")) {
-					System.out.printf("Угадал с %d попытки.",(i+1));
+					
+				} else if (answer.equals("yes")) {
+					
+					System.out.printf("Угадал с %d попытки.\n",(i+1));
 					break;
+					
 				} else {
+					
 					i--;
 				}
 				if (guess==usernum) {
+					
 					System.out.println("Таки угадал, вы меня пытаетесь обмануть...");
 					break;
+					
 				}
 				guess = (upbord + lowbord) / 2;
 			};
