@@ -16,6 +16,7 @@ public class LSDSort {
 		long stop = System.currentTimeMillis();
 		
 		System.out.println("Elapsed = " + (stop - start));
+		printMatrix(data);
 		
 //		long start = System.currentTimeMillis();
 //		data=wikiSort(data);
@@ -41,29 +42,38 @@ public class LSDSort {
 		return data;
 	}
 	
-	private static void lSDSort(int[] a) {  // моя сортировка
+	private static void lSDSort(int[] a) { 
 		
-		int digit=1;		// разряд
+		int digit=0;		// разряд		
 		int lastsorted=0;	// место последнего элемента который отсортирован в текущем разряде
+		int[] masks = new int[8];
+		
+		for (int i = 0; i < masks.length; i++) {
+			masks[i]=0xf<<i*4;
+		}
 		
 		int [] temp = new int[a.length];
 		
-		while (digit<7) {
+		while (digit<5) {
 			System.arraycopy(a, 0, temp, 0, a.length);
-			for (int i = 0; i < 10; i++) {
+			for (int i = 0; i < 0x10; i++) {
 					for (int items = 0; items < MAX; items++) {
-						if (digNumeral(temp[items],digit) == i) {
-							a[lastsorted]=temp[items];
+						if ((i << 4 * digit) == (temp[items] & masks[digit])) {		
+							
+							a[lastsorted] = temp[items];
 							lastsorted++;
+							
 						}
 					}
-
 				}
 			lastsorted = 0;
 			digit++;
 		}
 		
+		
+		
 	}
+	
 	
 	public static int[] wikiSort(int[] old) {  //Radix сортировка из википедии
 	    // Loop for every bit in the integers
@@ -100,16 +110,10 @@ public class LSDSort {
 	    return old;
 	}
 	
-	
-
-	private static int digNumeral(int n, int digit) { //Возвращает цифру находящуюся в digit разряде числа.
-		
-		int num;
-		num = n % (int) Math.pow(10, digit);
-		if (digit - 1 != 0) {
-			num = num / (int) Math.pow(10, digit-1);
+	private static void printMatrix(int[] ar) {
+		for (int i = 0; i < 100; i++) {
+			System.out.printf("%d ",ar[i]);
 		}
-		
-		return num;
 	}
 }
+
